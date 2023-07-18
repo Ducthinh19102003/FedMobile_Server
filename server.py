@@ -14,7 +14,7 @@ n_completed_clients = 0
 def upload_model():
     file_path = config['global_model']
     bucket = storage.bucket()
-    uploaded_file_name = str(config['project_name']) + "/" + "global_model_" + str(current_round) + ".bin"
+    uploaded_file_name = f"{config['project_name']}/Round_{str(current_round)}/global_model_.bin"
     blob = bucket.blob(uploaded_file_name)
     blob.upload_from_filename(file_path)
 
