@@ -1,5 +1,5 @@
 ---
-project_name: "Baseline experiment"
+project_name: "Baseline_experiment"
 global_model: "global_model.bin"
 rounds: 10 # Number of communication rounds
 min_clients: 1 # Minimum number of clients for the project to start
