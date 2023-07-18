@@ -1,6 +1,7 @@
 from flask import Flask, session, render_template
 import yaml
 import firebase_admin
+import uuid
 from firebase_admin import credentials, db, messaging, storage
 
 with open("config.yaml") as f:
@@ -19,21 +20,24 @@ def upload_model():
     blob.upload_from_filename(file_path)
 
 app = Flask(__name__, template_folder='template')
+
+key = uuid.uuid4().hex
+app.config['SECRET_KEY']=key
 @app.route('/')
 def home():
     # Retrieve the connected devices from the session
-    connected_clients = session.get('connected_devices', [])
+    connected_clients = session.get('connected_clients', [])
     return render_template('connected_client.html', connected_clients=connected_clients)
 
-@app.route('/connect/<client_id>', methods=['POST'])
+@app.route('/connect/<client_id>', methods=['POST', 'GET'])
 def connect(client_id):
     # Retrieve the connected devices from the session
     connected_clients = session.get('connected_devices', [])
-    if client_id not in connected_devices:
+    if client_id not in connected_clients:
         # Add the new device to the connected devices list
-        connected_devices.append(client_id)
-        session['connected_devices'] = connected_devices
-        return f"Sucessful connectected to project {cofig[project_name]}"
+        connected_clients.append(client_id)
+        session['connected_clients'] = connected_clients
+        return f"Successful connectected to project {config['project_name']}"
     else:
         return f"Client {client_id} is already connected. Choose different client_ID!"
 
@@ -51,5 +55,7 @@ def disconnect(client_id):
 
 if __name__ == '__main__':
     model_file_path = config['global_model']
-    upload_model()
+    # upload_model()
     app.run(host="0.0.0.0", port=8080, debug=True)
+    
+
