@@ -1,0 +1,7 @@
+---
+project_name: "Baseline experiment"
+global_model: "global_model.bin"
+rounds: 10 # Number of communication rounds
+min_clients: 1 # Minimum number of clients for the project to start
+aggregate_threshold: 1 # Percentage of clients submitted rate before model aggregating
+sample_rate: 1
