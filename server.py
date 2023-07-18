@@ -49,7 +49,9 @@ def disconnect(client_id):
     
     return f"Device {client_id} disconnected successfully."
 
+
 if __name__ == '__main__':
     model_file_path = config['global_model']
-    upload_model()
+    # upload_model()
     app.run(host="0.0.0.0", port=8080, debug=True)
+    
