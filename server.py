@@ -8,14 +8,14 @@ with open("config.yaml") as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
     
 cred = credentials.Certificate("certificate.json")
-firebase_admin.initialize_app(cred, {'storageBucket' : 'fedmobile-7362c.appspot.com'})
+firebase_admin.initialize_app(cred, {'storageBucket' : 'fedmobile-e05c2.appspot.com'})
 
 current_round = 1
 n_completed_clients = 0
 def upload_model():
     file_path = config['global_model']
     bucket = storage.bucket()
-    uploaded_file_name = f"{config['project_name']}/Round_{str(current_round)}/global_model_.bin"
+    uploaded_file_name = f"{config['project_name']}/Round_{str(current_round)}/global_model.bin"
     blob = bucket.blob(uploaded_file_name)
     blob.upload_from_filename(file_path)
 
@@ -55,7 +55,7 @@ def disconnect(client_id):
 
 if __name__ == '__main__':
     model_file_path = config['global_model']
-    # upload_model()
+    upload_model()
     app.run(host="0.0.0.0", port=8080, debug=True)
     
 
